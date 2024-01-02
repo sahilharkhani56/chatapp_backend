@@ -2,7 +2,6 @@ import UserModel from "../model/userSchema.js";
 import MessageModel from "../model/messageSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import ENV from "../config.js";
 {/*  */}
 
 // import otpGenerator from "otp-generator";
