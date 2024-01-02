@@ -5,6 +5,8 @@ import { Server } from "socket.io";
 import morgan from "morgan";
 import connect from "./Database/conn.js";
 import router from "./Router/Route.js";
+import dotenv from 'dotenv'
+dotenv.config()
 const app = express();
 const PORT = process.env.PORT||8080;
 // const io = new Server(server);
@@ -63,5 +65,5 @@ app.get("/", (req, res) => {
 app.use("/api", router);
 
 httpServer.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:8080`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

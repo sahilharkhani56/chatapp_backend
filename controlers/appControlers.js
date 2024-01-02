@@ -84,7 +84,7 @@ export async function login(req, res) {
                 userId: user.id,
                 username: user.username,
               },
-              ENV.JWT_SECRET,
+              process.env.JWT_SECRET,
               { expiresIn: "24h" }
             );
             // console.log(token);
