@@ -1,4 +1,4 @@
-import UserModel from "../model/userSchema.js";
+  import UserModel from "../model/userSchema.js";
 import MessageModel from "../model/messageSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -183,7 +183,7 @@ export async function addMessage(req,res,next){
       sender:from,
     })
     // console.log(data.createdAt);
-    if(data) return res.json({msg:"Message added successfully"})
+    if(data) return res.json({data,msg:"Message added successfully"})
     return res.json({msg:"Failed to add Message"})
   }
   catch(err){

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import http, { createServer } from "http";
 import { Server } from "socket.io";
+// Morgan is an HTTP request level Middleware. It is a great tool that logs the requests along with some other information depending upon its configuration and the preset used. It proves to be very helpful while debugging and also if you want to create Log files.
 import morgan from "morgan";
 import connect from "./Database/conn.js";
 import router from "./Router/Route.js";
@@ -20,7 +21,8 @@ connect();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://chatapp-frontend-sc4g.onrender.com/",
+    // origin: "https://chatapp-frontend-sc4g.onrender.com",
+    origin: `${process.env.FRONTEND_URI}`,
     methods: ["PUT", "POST", "DELETE", "GET"],
     credentials: true,
   },
@@ -35,14 +37,14 @@ io.on("connection", (socket) => {
     }
     activeUsers[userId].push(socket.id);
     socketIdToUserId[socket.id] = userId;
-    // console.log(activeUsers);
+    // console.log(Object.keys(activeUsers));
     io.emit("activeUserResponse", Object.keys(activeUsers));
   });
 
-  socket.on("newMessage", (data) => {
-    if (activeUsers[data]) {
-      for (var i = 0; i < activeUsers[data].length; i++) {
-        io.to(activeUsers[data][i]).emit("messageResponse", data);
+  socket.on("newMessage", ({receiver,currentChatMessage,locatTime}) => {
+    if (activeUsers[receiver]) {
+      for (var i = 0; i < activeUsers[receiver].length; i++) {
+        io.to(activeUsers[receiver][i]).emit("messageResponse", {receiver,currentChatMessage,locatTime});
       }
     }
   });
