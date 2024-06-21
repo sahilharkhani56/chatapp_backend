@@ -21,7 +21,6 @@ connect();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    // origin: "https://chatapp-frontend-sc4g.onrender.com",
     origin: `${process.env.FRONTEND_URI}`,
     methods: ["PUT", "POST", "DELETE", "GET"],
     credentials: true,
